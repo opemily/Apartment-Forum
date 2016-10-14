@@ -1,0 +1,9 @@
+<%= form_for(@topic) do |f| %>
+  <p>
+    <%= f.text_field(:title, placeholder: 'Title for new Topic') %>
+  </p>
+  <p>
+    <%= f.text_area(:introduction, placeholder: 'Information About This Topic. Will appear below the Topic\'s title') %>
+  </p>
+  <p><%= f.submit(title) %></p>
+<% end %>
