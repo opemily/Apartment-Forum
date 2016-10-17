@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root('topics#index')
-  resources(:topics)
+  resources :topics do
+    resources :posts, shallow: true
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,7 +1,17 @@
+<% if request.post? && @topic.invalid? %>
+  <p> <%= pluralize(@topic.errors.count, 'error') %> prevented your Topic from saving! Fix the errors and try again! </p>
+<% end %>
+
 <%= form_for(@topic) do |f| %>
+  <% @topic.errors[:title].each do |error| %>
+    <div> <%= error %> </div>
+  <% end %>
   <p>
     <%= f.text_field(:title, placeholder: 'Title for new Topic') %>
   </p>
+   <% @topic.errors[:introduction].each do |error| %>
+    <div> <%= error %> </div>
+  <% end %>
   <p>
     <%= f.text_area(:introduction, placeholder: 'Information About This Topic. Will appear below the Topic\'s title') %>
   </p>

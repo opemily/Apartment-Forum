@@ -1,11 +1,8 @@
 class TopicsController < ApplicationController
+  before_action(:find_topic, only: [:show, :edit, :update, :destroy])
 
   def index
     @topics = Topic.all
-  end
-
-  def show
-    find_topic
   end
 
   def new
@@ -14,21 +11,15 @@ class TopicsController < ApplicationController
 
   def create
     @topic = Topic.create(topic_params)
-    redirect_to_topic('Topic has successfully been created')
-  end
-
-  def edit
-    find_topic
+    redirect_to_topic_if_valid('Topic has successfully been created')
   end
 
   def update
-    find_topic
     @topic.update(topic_params)
-    redirect_to_topic('Topic has successfully been updated')
+    redirect_to_topic_if_valid('Topic has successfully been updated')
   end
 
   def destroy
-    find_topic
     @topic.destroy
     redirect_to(topics_path, alert:'Topic has successfully been destroyed') 
   end
@@ -41,6 +32,10 @@ class TopicsController < ApplicationController
 
   def topic_params
     params[:topic].permit(:title, :introduction)
+  end
+
+  def redirect_to_topic_if_valid(notice)
+    redirect_to_topic(notice) if @topic.valid?
   end
 
   def redirect_to_topic(notice)
