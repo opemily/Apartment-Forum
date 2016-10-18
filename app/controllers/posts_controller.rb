@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
   before_action(:find_post, only: [:show, :edit, :update, :destroy])
+  before_action(:find_topic, only: [:new, :create])
 
   def new
-    @topic = find_topic
     @post = Post.new(topic: @topic)
   end
 
