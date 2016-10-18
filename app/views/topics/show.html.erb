@@ -3,3 +3,7 @@
 <p><%= @topic.introduction %></p>
 <%= link_to 'Edit Topic', edit_topic_path %>
 <%= link_to 'Delete Topic', topic_path, method: :delete, data: {confirm: 'Are you sure you want to delete this Topic?'} %>
+
+<%= render @posts %>
+
+<%= link_to 'Create New Post', new_topic_post_path(@topic.id) %>

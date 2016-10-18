@@ -1,0 +1,25 @@
+<% if request.post? && @post.invalid? %>
+  <p> <%= pluralize(@post.errors.count, 'error') %> prevented your post from saving! Fix the errors and try again! </p>
+<% end %>
+
+
+<%= form_for([@topic, @post]) do |f| %>
+  <%if new_post%>
+  <%= f.hidden_field(:topic_id, value: @topic.id) %>
+  <% end %>
+
+  <% @post.errors[:title].each do |error| %>
+    <div> <%= error %> </div>
+  <% end %>
+  <p>
+    <%= f.text_field(:title, placeholder: 'Title for new Post') %>
+  </p>
+
+  <% @post.errors[:body].each do |error| %>
+      <div> <%= error %> </div>
+  <% end %>
+  <p>
+    <%= f.text_area(:body, placeholder: 'Enter Post\'s Body Here') %>
+  </p>
+  <p><%= f.submit(title) %></p>
+<% end %>
