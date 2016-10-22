@@ -1,8 +1,11 @@
 <%= link_to 'Back to Topics', topics_path %>
 <h1><%= @topic.title %></h1>
 <p><%= @topic.introduction %></p>
+
+<% if current_user && current_user.is_admin %>
 <%= link_to 'Edit Topic', edit_topic_path %>
 <%= link_to 'Delete Topic', topic_path, method: :delete, data: {confirm: 'Are you sure you want to delete this Topic?'} %>
+<% end %>
 
 <%= render @posts %>
 

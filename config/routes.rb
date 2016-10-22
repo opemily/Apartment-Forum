@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :models
   devise_for :users
   root('topics#index')
+  resources :users
   resources :topics do
     resources :posts, shallow: true
   end
