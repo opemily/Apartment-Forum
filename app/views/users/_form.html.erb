@@ -1,0 +1,19 @@
+<%= form_for(@user) do |f| %>
+
+  <p>
+    <%= f.label(:admin, 'is Admin') %>
+    <%= f.check_box(:admin, {}, true) %>
+  </p>
+
+  <p>
+    <%= f.label(:landlord, 'is Landlord') %>
+    <%= f.check_box(:landlord, {}, true) %>
+  </p>
+
+  <p>
+    <%= f.label(:super, 'is Super') %>
+    <%= f.check_box(:super, {}, true) %>
+  </p>
+   
+  <p><%= f.submit('Edit') %></p>
+<% end %>

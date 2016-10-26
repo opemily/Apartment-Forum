@@ -1,0 +1,22 @@
+
+<div>
+  <span> <%= user.apt %></span>
+  <%= user.first_name %>
+  <%= user.last_name %>
+
+  <% if user.admin  %>
+    <span> Admin</span>
+  <% end %>
+  <span>
+    <% if user.landlord %>
+      <span> Landlord </span>
+    <% elsif user.super %>
+      <span> Super</span>
+    <% else %>
+      <span> Tenant</span>
+    <% end %>
+    <%= link_to('Edit Status', edit_user_path(user)) %>
+  </span>
+  <%= link_to 'Delete User', users_path, method: :delete, data: {confirm: "Deleting a user is permanent and should only be done if the user is no longer a tenant. Are you sure you want to delete #{user.first_name}?"} %>
+
+</div>

@@ -1,17 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :models
-  devise_for :users
-  root('topics#index')
-  resources :users
-  resources :topics do
-    resources :posts, shallow: true
-  end
-
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
+  
+  root('topics#index')
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -21,6 +16,15 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+
+  resources :topics do
+    resources :posts, shallow: true do
+      resources :replies, shallow: true
+    end
+  end
+
+  devise_for :users
+  resources(:users, only: [:index, :show, :edit, :update, :destroy])
 
   # Example resource route with options:
   #   resources :products do

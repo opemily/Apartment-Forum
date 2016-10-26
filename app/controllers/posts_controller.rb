@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.create(post_params)
+    @post = current_user.posts.create(post_params)
     redirect_to_post_if_valid('Post has successfully been created')
   end
 

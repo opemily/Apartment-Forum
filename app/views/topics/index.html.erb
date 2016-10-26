@@ -2,6 +2,6 @@
 
 <%= render(@topics) %>
 
-<% if current_user && current_user.is_admin %>
+<% if current_user.admin %>
 <%= link_to 'New Topic', new_topic_path%>
 <% end %>
