@@ -11,7 +11,6 @@
 <nav>
   <% if user_signed_in? %>
     <%= link_to(current_user.first_name + ' ' +current_user.last_name, user_path(current_user.id)) %>
-    <%= link_to('Edit', edit_user_registration_path) %>
     <%= link_to('Sign out', destroy_user_session_path, method: :delete) %>
     <% if current_user.admin %>
       <%= link_to('All Users', users_path) %>

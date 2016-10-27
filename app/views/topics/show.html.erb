@@ -7,6 +7,6 @@
 <%= link_to 'Delete Topic', topic_path, method: :delete, data: {confirm: 'Are you sure you want to delete this Topic?'} %>
 <% end %>
 
-<%= render @posts %>
+<%= render(@posts) || '<p>There are no conversations yet. Why don\'t you create a post?</p>'.html_safe %>
 
 <%= link_to 'Create New Post', new_topic_post_path(@topic.id) %>

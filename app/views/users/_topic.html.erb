@@ -1,0 +1,4 @@
+<h3> <%= link_to(topic.title, topic_path(topic)) %> </h3>
+
+  <%= render(@posts.where(topic_id: topic.id)) || '<p> You have not posted anything in this topic</p>'.html_safe  %>
+

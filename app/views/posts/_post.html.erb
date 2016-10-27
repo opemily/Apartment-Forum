@@ -1,5 +1,16 @@
 <div>
   <h3><%= link_to(post.title, post) %></h2>
   <p><%= post.body %></p>
-  <p> <%= (post.created_at.in_time_zone("Eastern Time (US & Canada)")).to_formatted_s(:long_ordinal)%></p>
+  <p>
+    <span> 
+      <% if post.user %>
+         By <%= post.user.first_name %> <%= post.user.last_name %>, <%= post.user.apt %>
+      <% else %>
+        By User Deleted
+      <% end %> 
+    </span> 
+    <span>
+    <%= (post.created_at.in_time_zone("Eastern Time (US & Canada)")).to_formatted_s(:long_ordinal)%> 
+    </span>  
+  </p>
 </div>
