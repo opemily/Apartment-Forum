@@ -1,6 +1,6 @@
 <h1> Welcome to the 3426 41st St Forum</h1>
 
-<%= render(@topics) %>
+<%= render(@topics, title_link: true, list_topic: true) %>
 
 <% if current_user.admin %>
 <%= link_to 'New Topic', new_topic_path%>

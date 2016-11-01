@@ -1,5 +1,5 @@
 <div>
-  <h3><%= link_to(post.title, post) %></h2>
+  <h3><%= link_to(post.title, post_replies_path(post)) %></h3>
   <p><%= post.body %></p>
   <p>
     <span> 
@@ -10,7 +10,7 @@
       <% end %> 
     </span> 
     <span>
-    <%= (post.created_at.in_time_zone("Eastern Time (US & Canada)")).to_formatted_s(:long_ordinal)%> 
+      <%= (post.created_at.in_time_zone("Eastern Time (US & Canada)")).to_formatted_s(:long_ordinal)%> 
     </span>  
   </p>
 </div>

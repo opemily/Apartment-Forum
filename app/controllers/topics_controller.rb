@@ -1,14 +1,10 @@
 class TopicsController < ApplicationController
 
   before_action(:authenticate_user!)
-  before_action(:find_topic, only: [:show, :edit, :update, :destroy])
+  before_action(:find_topic, only: [:edit, :update, :destroy])
 
   def index
     @topics = Topic.all
-  end
-
-  def show
-    @posts = @topic.posts
   end
 
   def new
@@ -45,7 +41,6 @@ class TopicsController < ApplicationController
   end
 
   def redirect_to_topic(notice)
-    redirect_to(@topic, notice: notice)
+    redirect_to(topic_posts_path(@topic), notice: notice)
   end
-
 end

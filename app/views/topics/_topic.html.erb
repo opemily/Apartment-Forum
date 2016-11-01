@@ -1,5 +1,19 @@
 <div>
-  <h2><%= link_to(topic.title, topic) %></h2>
+  <% if title_link %>
+
+    <h2><%= link_to(topic.title, topic_posts_path(topic)) %></h2>
+
+  <% else %>
+
+    <h2><%= topic.title %></h2>
+
+  <% end %>
+
   <p><%= topic.introduction %></p>
-  <p> <%= topic.posts.count %> posts in this topic</p>
+
+  <%if list_topic %> 
+
+    <p> <%= topic.posts.count %> posts in this topic</p>
+
+  <% end %>
 </div>

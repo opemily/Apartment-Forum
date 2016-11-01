@@ -17,14 +17,14 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
-  resources :topics do
-    resources :posts, shallow: true do
-      resources :replies, shallow: true
+  resources :topics, except: [:show] do
+    resources :posts, except: [:show], shallow: true do
+      resources :replies, except: [:show], shallow: true
     end
   end
 
   devise_for :users
-  resources(:users, only: [:index, :show, :edit, :update, :destroy])
+  resources(:users, except: [:new, :create])
 
   # Example resource route with options:
   #   resources :products do

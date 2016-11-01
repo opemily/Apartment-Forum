@@ -1,4 +1,4 @@
 <h1> Edit Topic</h1>
 
 <%= render('form', title: 'Edit Topic', new_post: false) %>
-<%= link_to 'Cancel', topic_path %>
+<%= link_to 'Cancel', topic_posts_path(@topic) %>

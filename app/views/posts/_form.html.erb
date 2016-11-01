@@ -3,23 +3,24 @@
 <% end %>
 
 
-<%= form_for([@topic, @post]) do |f| %>
-  <%if new_post%>
-  <%= f.hidden_field(:topic_id, value: @topic.id) %>
+<%= form_for(@path) do |f| %>
+
+  <%if new_post %>
+    <%= f.hidden_field(:topic_id, value: @post.topic.id) %>
   <% end %>
 
-  <% @post.errors[:title].each do |error| %>
-    <div> <%= error %> </div>
-  <% end %>
-  <p>
-    <%= f.text_field(:title, placeholder: 'Title for new Post') %>
-  </p>
-
-  <% @post.errors[:body].each do |error| %>
+    <% @post.errors[:title].each do |error| %>
       <div> <%= error %> </div>
-  <% end %>
-  <p>
-    <%= f.text_area(:body, placeholder: 'Enter Post\'s Body Here') %>
-  </p>
-  <p><%= f.submit(title) %></p>
+    <% end %>
+    <p>
+      <%= f.text_field(:title, placeholder: 'Title for new Post') %>
+    </p>
+
+    <% @post.errors[:body].each do |error| %>
+        <div> <%= error %> </div>
+    <% end %>
+    <p>
+      <%= f.text_area(:body, placeholder: 'Enter Post\'s Body Here') %>
+    </p>
+    <p><%= f.submit(title) %></p>
 <% end %>

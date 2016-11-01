@@ -1,0 +1,22 @@
+<div>
+  <p> <%= reply.body %> </p>
+
+  <p>
+    <span>
+      <% if reply.user %>
+         By <%= reply.user.first_name %> <%= reply.user.last_name %>, <%= reply.user.apt %>
+      <% else %>
+        By User Deleted
+      <% end %> 
+    </span> 
+    <span>
+    <%= (reply.created_at.in_time_zone("Eastern Time (US & Canada)")).to_formatted_s(:long_ordinal)%> 
+    </span>  
+  </p>
+  <p>
+    <%= link_to('Reply', new_post_reply_path(@post)) %>
+    <%= link_to('Edit', edit_reply_path) %>
+    <%= link_to('Delete', reply_path, method: :delete, data: {confirm: 'Are you sure you want to delete this reply?'})) %>
+    
+  </p>
+</div>

@@ -1,10 +1,11 @@
 <%= link_to 'Back to Topics', topics_path %>
-<h1><%= @topic.title %></h1>
-<p><%= @topic.introduction %></p>
+
+<%= render(@topic, title_link: false, list_topic: false) %>
+
 
 <% if current_user.admin %>
-<%= link_to 'Edit Topic', edit_topic_path %>
-<%= link_to 'Delete Topic', topic_path, method: :delete, data: {confirm: 'Are you sure you want to delete this Topic?'} %>
+<%= link_to 'Edit Topic', edit_topic_path(@topic) %>
+<%= link_to 'Delete Topic', topic_path(@topic), method: :delete, data: {confirm: 'Are you sure you want to delete this Topic?'} %>
 <% end %>
 
 <%= render(@posts) || '<p>There are no conversations yet. Why don\'t you create a post?</p>'.html_safe %>
