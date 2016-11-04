@@ -6,7 +6,7 @@
 <%= form_for(@path) do |f| %>
 
   <%if new_post %>
-    <%= f.hidden_field(:topic_id, value: @post.topic.id) %>
+    <%= f.hidden_field(:topic_id, value: @topic.id) %>
   <% end %>
 
     <% @post.errors[:title].each do |error| %>
@@ -20,7 +20,7 @@
         <div> <%= error %> </div>
     <% end %>
     <p>
-      <%= f.text_area(:body, placeholder: 'Enter Post\'s Body Here') %>
+      <%= f.text_area(:body, placeholder: 'Enter Post Here') %>
     </p>
     <p><%= f.submit(title) %></p>
 <% end %>

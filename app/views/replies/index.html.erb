@@ -1,5 +1,6 @@
 <%= link_to 'Back to all Posts', topic_posts_path(@post.topic) %>
- <%= render(@post) %>
+
+ <%= render(@post, title_link: false, list_post: false) %>
 
 <% if current_user == @post.user %>
 
@@ -10,4 +11,4 @@
 
 <%= link_to('Reply to Post', new_post_reply_path(@post)) %>
 
-<%= render(@replies) %>
+<%= replies_tree_for(@replies) || '<p>There are no replies to this post yet.'.html_safe %>

@@ -1,8 +1,7 @@
 class PostsController < ApplicationController
   
   before_action(:find_post, only: [:edit, :update, :destroy])
-  before_action(:find_topic_new_post, only: [:index, :new, :create])
-  before_action(:find_topic, only: [:edit, :update, :destroy])
+  before_action(:find_topic, only: [:index, :new, :create, :edit, :update, :destroy])
 
   def index
     @posts = Post.where(topic_id: @topic.id)
@@ -34,12 +33,13 @@ class PostsController < ApplicationController
 
   private
 
-  def find_topic_new_post
-    @topic = Topic.find(params[:topic_id])
-  end
-
   def find_topic
-    @topic = @post.topic
+    if params[:topic_id]
+      @topic = Topic.find(params[:topic_id])
+    else
+      @topic = @post.topic
+    end
+    
   end
 
   def find_post

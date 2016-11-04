@@ -1,16 +1,35 @@
 <div>
-  <h3><%= link_to(post.title, post_replies_path(post)) %></h3>
+  <% if title_link %>
+
+    <h3><%= link_to(post.title, post_replies_path(post)) %></h3>
+
+  <% else %>
+
+    <h3> <%= post.title %> </h3>
+
+  <% end %>
+
   <p><%= post.body %></p>
+
   <p>
     <span> 
       <% if post.user %>
+
          By <%= post.user.first_name %> <%= post.user.last_name %>, <%= post.user.apt %>
+
       <% else %>
+
         By User Deleted
+
       <% end %> 
-    </span> 
-    <span>
-      <%= (post.created_at.in_time_zone("Eastern Time (US & Canada)")).to_formatted_s(:long_ordinal)%> 
     </span>  
+
+    <span>
+      <%= l(post.created_at, format: '%b %e, %Y, %I:%M%P')%> 
+    </span>
+
+    <% if list_post %>
+      <p> <%= post.replies.count %> replies to this post </p>
+    <% end %>
   </p>
 </div>

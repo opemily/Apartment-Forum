@@ -1,0 +1,9 @@
+<% if @reply.parent %>
+  <%= link_to('Back to Post', post_replies_path(@reply.root.post)) %>
+
+<% else %>
+<%= render(@post, title_link: true, list_post: false) %>
+
+<% end %>
+
+<%= render(@reply, title_link: false, list_post: false) %>

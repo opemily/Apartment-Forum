@@ -1,4 +1,9 @@
-<h4> <%= link_to(post.title, post_path(post)) %> </h3>
+<div>
+  <h3> <%= link_to(post.title, post_replies_path(post)) %> </h3>
 
-<p> <%= post.body %></p>
-<p> <%= post.created_at %></p>
+  <p> <%= post.body %></p>
+  <p>  <%= l(post.created_at, format: '%b %e, %Y, %I:%M%P')%> </p>
+
+  <%= render(partial: 'reply', collection: @replies.where(post_id: post.id))%>
+
+</div>

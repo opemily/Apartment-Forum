@@ -1,0 +1,6 @@
+<h1> Edit Reply</h1>
+
+<%= render(@post, title_link: false, list_post: false) %>
+
+<%= render('form', title: 'Edit Reply', new_reply: false) %>
+<%= link_to 'Cancel', post_replies_path(@post) %>

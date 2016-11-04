@@ -1,20 +1,37 @@
 class RepliesController < ApplicationController
-  before_action(:find_post, only: [:edit, :update, :destroy])
-  before_action(:find_post_by_params, only: [:index, :new, :create])
-  before_action(:find_post, only: [:edit, :update, :destroy])
+  before_action(:find_reply, only: [:show, :edit, :update, :destroy])
+  before_action(:find_post, only: [:index, :new, :create, :show, :edit, :update, :destroy])
 
   def index
-    @replies = Reply.where(post_id: @post.id)
+    @replies = Reply.where(post_id: @post.id).hash_tree
   end
 
   def new
-    @reply = Reply.new(post: @post)
-    @path = [@post, @reply]
+    if params[:parent_id]
+
+      @reply = Reply.new(post_id: params[:post_id], parent_id: params[:parent_id])
+    else
+
+      @reply = Reply.new(post_id: params[:post_id])   
+    end  
+
+    @path = [@post, @reply] 
   end
 
   def create
+    if params[:reply][:parent_id].to_i > 0
+      parent = Reply.find_by_id(params[:reply].delete(:parent_id))
+      @reply = parent.children.build(reply_params)
+      @reply.user_id = current_user.id
+      @reply.post_id = parent.post_id
+
+      @reply.save
+      
+    else
     @reply = current_user.replies.create(reply_params)
-    redirect_to_replies_if_valid('Reply has successfully been created')
+    end
+
+    redirect_to_reply_if_valid('Reply has successfully been created')
   end
 
   def edit
@@ -22,27 +39,34 @@ class RepliesController < ApplicationController
   end
 
   def update
-    @reply.update(post_params)
-    redirect_to_replies_if_valid('Reply has successfully been updated')
+    @reply.update(reply_params)
+    redirect_to_reply_if_valid('Reply has successfully been updated')
   end
 
   def destroy
     @reply.destroy
-    redirect_to(post_replies(@post), alert: 'Reply has successfully been deleted')
+    redirect_to(post_replies_path(@post), alert: 'Reply has successfully been deleted')
   end
 
   private
 
-  def find_post_by_params
-    @post = Post.find(params[:post_id])
-  end
-
   def find_post
-    @post = Post.find(params[:post_id])
+    if params[:post_id]
+      @post = Post.find(params[:post_id])
+    elsif params[:parent_id]
+      @post = Reply.find(params[:parent_id]).post
+    else
+      @post = @reply.post
+    end
+    
   end
 
   def find_reply
     @reply = Reply.find(params[:id])
+  end
+
+  def reply_params
+    params[:reply].permit(:post_id, :parent_id, :body)
   end
 
   def redirect_to_reply_if_valid(notice)
@@ -50,6 +74,6 @@ class RepliesController < ApplicationController
   end
 
   def redirect_to_reply(notice)
-    redirect_to(post_replies_path, notice: notice)
+    redirect_to(@reply, notice: notice)
   end
 end

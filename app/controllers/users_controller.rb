@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   def show
     @topics = Topic.all
     @posts = Post.where(user_id: params[:id])
+    @replies = Reply.where(user_id: params[:id])
   end
 
   def update

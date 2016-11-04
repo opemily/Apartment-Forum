@@ -1,1 +1,13 @@
-<%= render(@post) %>
+<% if @reply.parent %>
+
+  <%= render(@reply.parent) %>
+
+<% else %>
+
+  <%= render(@post, title_link: true, list_post: false) %>
+
+<% end %>
+
+
+
+<%= render('form', title: nil, new_reply: true) %>

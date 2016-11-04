@@ -1,0 +1,29 @@
+<% if request.post? && @post.invalid? %>
+
+  <p> <%= pluralize(@post.errors.count, 'error') %> prevented your reply from saving! Fix the errors and try again! </p>
+<% end %>
+
+<%= form_for(@path) do |f| %>
+
+  <%if new_reply %>
+
+    <% if params[:parent_id] %>
+
+      <%= f.hidden_field(:parent_id) %>
+
+    <% end %>
+
+       <%= f.hidden_field(:post_id) %>
+  <% end %>
+
+    <% @reply.errors[:body].each do |error| %>
+
+        <div> <%= error %> </div>
+    <% end %>
+
+    <p>
+      <%= f.text_area(:body, placeholder: 'Enter Reply Here') %>
+    </p>
+
+    <p><%= f.submit(title) %></p>
+<% end %>
